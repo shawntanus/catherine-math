@@ -12,6 +12,9 @@
           <li class="nav-item">
             <a href="#" class="nav-link" v-bind:class="{active: progress.level === 3}" v-on:click="$emit('setLevel', 3)">Level 3</a>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" v-bind:class="{active: progress.level === 4}" v-on:click="$emit('setLevel', 4)">Level 4</a>
+          </li>
         </ul>
 
         <ul class="navbar-nav navbar-right">

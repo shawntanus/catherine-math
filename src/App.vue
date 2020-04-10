@@ -74,6 +74,12 @@ export default {
           this.progress.total = 10;
           Problem.methods.generateQuestion = problemGenerator.problem_generator_3;
           break;
+        case 4:
+          this.progress.level = 4;
+          this.progress.level_desc = "Minus under 100 with borrow mixed";
+          this.progress.total = 10;
+          Problem.methods.generateQuestion = problemGenerator.problem_generator_4;
+          break;
       }
     },
   },

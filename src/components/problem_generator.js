@@ -35,4 +35,10 @@ export default {
 
       return {question: a + " - " + b, answer: a-b}
     },
+    problem_generator_4() {
+      var a=getRndInteger(21,98);
+      var b = getRndInteger(10,a-1);
+
+      return {question: a + " - " + b, answer: a-b}
+    },
 }
