@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Intro = (props)=> {
+const Intro = (props) => {
   return (
     <div className="jumbotron">
       <h1>Minus Level {props.shared.level.id}</h1>
