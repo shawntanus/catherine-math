@@ -4,7 +4,7 @@ function getRndInteger(min, max) {
 }
 
 export default {
-  problem_generator_1() {
+  g1() {
     var a, b, a1;
     do {
       a = getRndInteger(10, 18);
@@ -14,7 +14,7 @@ export default {
 
     return { question: a + " - " + b, answer: a - b }
   },
-  problem_generator_2() {
+  g2() {
     var a = getRndInteger(11, 98), b, a1, b1;
     a1 = a % 10;
     do {
@@ -24,7 +24,7 @@ export default {
 
     return { question: a + " - " + b, answer: a - b }
   },
-  problem_generator_3() {
+  g3() {
     var a = getRndInteger(11, 98), b, a1, b1;
     a1 = a % 10;
     if (a1 === 9) { a--; a1--; }
@@ -35,7 +35,7 @@ export default {
 
     return { question: a + " - " + b, answer: a - b }
   },
-  problem_generator_4() {
+  g4() {
     var a = getRndInteger(21, 98);
     var b = getRndInteger(10, a - 1);
 
