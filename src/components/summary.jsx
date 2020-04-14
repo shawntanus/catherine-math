@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 class Summary extends Component {
 
     render() { 
+        const red = {color: "red"};
+
         return(
             <div className="jumbotron">
             <div><h1>Level: { this.props.shared.level.id }</h1></div>
@@ -12,7 +14,7 @@ class Summary extends Component {
             {this.props.shared.wrong_questions.length >0 &&
                 <div><h1>Wrong answers:</h1><ul>
                     {this.props.shared.wrong_questions.map((question,index) => (
-                        <li key={index}><h2>{question}</h2></li>
+                        <li key={index}><h2 style={red}>{question}</h2></li>
                     ))}
                 </ul></div>
             }
