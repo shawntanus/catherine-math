@@ -31,25 +31,6 @@ const Problem = (props)=> {
     const audioBounce = new Audio(soundBounce);
 
     useEffect(() =>{
-        let q = newQuestion(props.shared.level.id);
-        setQuestion(q.question);
-        setAnswer(q.answer);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-             
-        if(Number(input) === answer){
-            audioBounce.play();
-            props.onAnswer(true);
-        }else{
-            audioClick.play();
-            var wrong = question + " = " + input;
-            props.onAnswer(false, wrong);
-            console.log(wrong);
-        }
-
         var q;
         do{
             q = newQuestion(props.shared.level.id);
@@ -58,7 +39,21 @@ const Problem = (props)=> {
         setQuestion(q.question);
         setAnswer(q.answer);
         setInput("");
-        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[props.shared.right, props.shared.wrong]);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if(Number(input) === answer){
+            audioBounce.play();
+            props.onAnswer(true);
+        }else{
+            audioClick.play();
+            var wrong = question + " = " + input;
+            props.onAnswer(false, wrong);
+            console.log(wrong);
+        }        
         return false;
     }
 

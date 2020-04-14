@@ -22,7 +22,7 @@ const App = () => {
     
     useEffect(()=>{
       if(shared.right+shared.wrong>=shared.level.total){
-        setShared({...shared, end: new Date()});
+        setShared({...shared, end: Date.now()});
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[shared.right, shared.wrong]);
@@ -44,7 +44,7 @@ const App = () => {
         <NavBar shared={shared} levels={levels} onSetLevel={onSetLevel}/>
         <div className="container">
           {(shared.begin==null) && 
-          <Intro shared={shared} levels={levels} onStart={()=>setShared({...shared, begin: new Date()})}/>}
+          <Intro shared={shared} levels={levels} onStart={()=>setShared({...shared, begin: Date.now() })}/>}
 
            {(shared.begin && shared.end == null) && <Problem shared={shared} onAnswer={onAnswer} /> }
 
