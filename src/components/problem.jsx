@@ -1,98 +1,80 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import problemGenerator from './problem_generator.js';
 import soundClick from './click.mp3';
 import soundBounce from './bounce.mp3';
 
-class Problem extends Component {
-    state = {
-        question: "",
-        answer: 0,
-        input: "",
-    };
-
-    audioClick = new Audio(soundClick);
-    audioBounce = new Audio(soundBounce);
-
-    constructor(props){
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        
+const newQuestion = (id)=> {
+    let q;
+    switch(id){
+        case 1:
+        default:
+            q = problemGenerator.problem_generator_1();
+            break;
+        case 2:
+            q = problemGenerator.problem_generator_2();
+            break;
+        case 3:
+            q = problemGenerator.problem_generator_3();
+            break;
+        case 4:
+            q = problemGenerator.problem_generator_4();
+            break;
     }
+    return q;
+}
 
-    render() { 
-        return(
-            <div className="jumbotron">
-            <form onSubmit={this.handleSubmit}>
-              <div className="input-group input-group-lg">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">{this.state.question} = </span>
-                </div>
-                <input type="number" className="form-control" placeholder="Answer here" value={this.state.input} onChange={this.handleChange} autoFocus/>
-              </div>
-            </form> 
-          </div>
-        );
-    }
+const Problem = (props)=> {
+    const [question, setQuestion] = useState("");
+    const [answer, setAnswer] = useState(0);
+    const [input, setInput] = useState("");
+    const audioClick = new Audio(soundClick);
+    const audioBounce = new Audio(soundBounce);
 
-    componentDidMount(){
-        let q = this.newQuestion();
-        this.setState({question: q.question, answer: q.answer});
-    }
+    useEffect(() =>{
+        let q = newQuestion(props.shared.level.id);
+        setQuestion(q.question);
+        setAnswer(q.answer);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
-    newQuestion(){
-        let q;
-        switch(this.props.shared.level.id){
-            case 1:
-            default:
-                q = problemGenerator.problem_generator_1();
-                break;
-            case 2:
-                q = problemGenerator.problem_generator_2();
-                break;
-            case 3:
-                q = problemGenerator.problem_generator_3();
-                break;
-            case 4:
-                q = problemGenerator.problem_generator_4();
-                break;
-        }
-        return q;
-    }
-
-    handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        if(this.state.input === "")
-            return false;
-            
-        if(Number(this.state.input) === this.state.answer){
-            this.audioBounce.play();
-            this.props.onAnswer(true);
+             
+        if(Number(input) === answer){
+            audioBounce.play();
+            props.onAnswer(true);
         }else{
-            this.audioClick.play();
-            var wrong = this.state.question + " = " + this.state.input;
-            this.props.onAnswer(false, wrong);
+            audioClick.play();
+            var wrong = question + " = " + input;
+            props.onAnswer(false, wrong);
             console.log(wrong);
         }
 
-        if(this.props.shared.right + this.props.shared.wrong < this.props.shared.level.total){
-            var q;
-            do{
-                q = this.newQuestion();
-            }while(this.question === q.question);
-            
-            this.setState({question: q.question, answer: q.answer, input: ""});
-        }else{
-            this.props.onNext();
-        }
+        var q;
+        do{
+            q = newQuestion(props.shared.level.id);
+        }while(question === q.question);
+        
+        setQuestion(q.question);
+        setAnswer(q.answer);
+        setInput("");
         
         return false;
     }
 
-    handleChange(event) {
-        this.setState({input: event.target.value});
-    }
-
+    return(
+        <div className="jumbotron">
+        <form onSubmit={handleSubmit}>
+          <div className="input-group input-group-lg">
+            <div className="input-group-prepend">
+              <span className="input-group-text">{question} = </span>
+            </div>
+            <input type="number" className="form-control" placeholder="Answer here" value={input} onChange={e => setInput(e.target.value)} autoFocus required/>
+          </div>
+        </form> 
+      </div>
+    );
 }
+
  
 export default Problem;

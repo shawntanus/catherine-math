@@ -1,99 +1,57 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from './navbar';
 import Intro from './intro';
 import Problem from './problem';
 import Summary from './summary';
 
-class App extends Component {
-  state = {
-    levels: [
-        {id: 1, title: "Level 1", desc: "Minus under 20", total: 30},
-        {id: 2, title: "Level 2", desc: "Minus under 100", total: 30},
-        {id: 3, title: "Level 3", desc: "Minus under 100 with borrow", total: 10},
-        {id: 4, title: "Level 4", desc: "Minus under 100 with borrow mixed", total: 10},
-    ],
-    shared: {
-      level: {},
+const App = () => {
+  const [levels] = useState([
+    {id: 1, title: "Level 1", desc: "Minus under 20", total: 30},
+    {id: 2, title: "Level 2", desc: "Minus under 100", total: 30},
+    {id: 3, title: "Level 3", desc: "Minus under 100 with borrow", total: 10},
+    {id: 4, title: "Level 4", desc: "Minus under 100 with borrow mixed", total: 10},
+    ]);
+    const [shared, setShared] = useState({
+      level: levels[0],
       right: 0,
       wrong: 0,
       end: null,
       begin: null,
       wrong_questions: []
-    },
-    currentComponent: 0,
-  }
+    });
+    
+    useEffect(()=>{
+      if(shared.right+shared.wrong>=shared.level.total){
+        setShared({...shared, end: new Date()});
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[shared.right, shared.wrong]);
 
-  componentDidMount(){
-    const state = this.initState();
-    this.setState(state);
-  }
+    const onAnswer = (isRight, wrong) => {
+      if(isRight){
+        setShared({...shared, right: shared.right+1});
+      }else{
+        setShared({...shared, wrong: shared.wrong+1, wrong_questions: shared.wrong_questions.concat(wrong) });
+      }
+    }
 
-  initState(){
-    return {shared: {
-      level: this.state.levels[0],
-      right: 0,
-      wrong: 0,
-      end: null,
-      begin: null,
-      wrong_questions: []
-    },currentComponent: 0};
-  }
-
-  render(){
+    const onSetLevel = (i) => {
+      setShared({...shared, level: i, right:0, wrong:0, begin: null, end: null, wrong_questions: []});
+    }
+  
     return (
-        <div className="App">
-        <NavBar shared={this.state.shared} levels={this.state.levels} onSetLevel={this.onSetLevel}/>
+      <div className="App">
+        <NavBar shared={shared} levels={levels} onSetLevel={onSetLevel}/>
         <div className="container">
-          {this.getComponent()}
+          {(shared.begin==null) && 
+          <Intro shared={shared} levels={levels} onStart={()=>setShared({...shared, begin: new Date()})}/>}
+
+           {(shared.begin && shared.end == null) && <Problem shared={shared} onAnswer={onAnswer} /> }
+
+           {(shared.end) && <Summary shared={shared} levels={levels} />}
         </div>
-        </div>
-    );
-  }
-
-  onAnswer = (right, wrong) => {
-    const shared = this.state.shared;
-    if(right){
-      shared.right++;
-    }else{
-      shared.wrong_questions.push(wrong);
-      shared.wrong++;
-    }
-    this.setState({shared});
-
-  }
-
-  onSetLevel = (i) => {
-    const state = this.initState();
-    state.shared.level = i;
-    this.setState(state);
-  }
-
-  onNext = () => {
-    const shared = this.state.shared;
-    if(this.state.currentComponent === 0){
-      shared.begin = new Date();
-    }else if(this.state.currentComponent === 1){
-      shared.end = new Date();
-    }
-    this.setState({shared: shared, currentComponent: this.state.currentComponent+1});
-  }
-
-  getComponent(){
-    let component;
-    switch (this.state.currentComponent){
-      case 0 :
-      default:
-        component = <Intro shared={this.state.shared} levels={this.state.levels} onNext={this.onNext}/>;
-        break;
-      case 1:
-        component = <Problem shared={this.state.shared} onNext={this.onNext} onAnswer={this.onAnswer} />;
-        break;
-      case 2:
-        component = <Summary shared={this.state.shared} levels={this.state.levels} />;
-        break;
-    }
-    return component;
-  }
+      </div>
+  );
 }
 
 export default App;
