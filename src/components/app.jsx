@@ -3,7 +3,7 @@ import NavBar from './navbar';
 import Intro from './intro';
 import Problem from './problem';
 import Summary from './summary';
-
+import Version from './version';
 
 const App = () => {
   const levels = [
@@ -62,6 +62,7 @@ const App = () => {
 
         {(shared.end) && <Summary shared={shared} levels={levels} />}
       </div>
+      <div className="fixed-bottom text-right text-muted"><Version /></div>
     </div>
   );
 }
