@@ -34,7 +34,6 @@ const NavBar = (props) => {
         </ul>
 
         <ul className="navbar-nav navbar-right">
-          <li><button className="nav-link btn btn-link">Timer: <TimeFormatter t={timerInSeconds} /> </button></li>
           <li><button className="nav-link btn btn-link">Progress: {props.shared.right + props.shared.wrong}/{props.shared.level.total || "-"}</button></li>
         </ul>
       </div>
