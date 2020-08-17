@@ -41,4 +41,10 @@ export default {
 
     return { question: a + " - " + b, answer: a - b }
   },
+  g5() {
+    var a = getRndInteger(200, 999);
+    var b = getRndInteger(100, a - 1);
+
+    return { question: a + " - " + b, answer: a - b }
+  },
 }

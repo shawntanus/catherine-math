@@ -11,6 +11,7 @@ const App = () => {
     { id: 2, title: "Level 2", desc: "Minus under 100", total: 30 },
     { id: 3, title: "Level 3", desc: "Minus under 100 with borrow", total: 10 },
     { id: 4, title: "Level 4", desc: "Minus under 100 with borrow mixed", total: 10 },
+    { id: 5, title: "Level 5", desc: "Minus under 1000", total: 10 },
   ];
 
   const initShared = {
