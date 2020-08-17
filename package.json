@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.4.1",
+    "netlify-lambda": "^2.0.1",
     "preval.macro": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -17,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "react-scripts build && netlify deploy --dir=build --prod"
+    "deploy": "react-scripts build && netlify-lambda build lambda && netlify deploy --dir=build --prod"
   },
   "eslintConfig": {
     "extends": "react-app"
