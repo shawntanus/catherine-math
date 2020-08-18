@@ -30,12 +30,6 @@ const App = () => {
       case 'begin':
         return { ...state, begin: Date.now() };
       case 'end':
-          fetch('https://class.shin.dev/.netlify/functions/logging', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({level: state.level, right: state.right, wrong:state.wrong, wrong_questions: state.wrong_questions })
-            });
-        
         return { ...state, end: Date.now() };
       case 'answer':
         if (action.isRight)
