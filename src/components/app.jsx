@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
+import faunadb from 'faunadb';
 import NavBar from './navbar';
 import Intro from './intro';
 import Problem from './problem';
@@ -30,6 +31,14 @@ const App = () => {
       case 'begin':
         return { ...state, begin: Date.now() };
       case 'end':
+        const q = faunadb.query;
+        const client = new faunadb.Client({ secret: 'fnADzi7APHACDAYFfcN6AF0KGb4nDC4VUecbTZRD' });
+        var createP = client.query(
+          q.Create(
+            q.Collection('logs'),
+            { data:  {level: state.level.id, right: state.right, wrong:state.wrong, wrong_questions: state.wrong_questions }}
+          )
+        )
         return { ...state, end: Date.now() };
       case 'answer':
         if (action.isRight)
