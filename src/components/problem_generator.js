@@ -47,4 +47,10 @@ export default {
 
     return { question: a + " - " + b, answer: a - b }
   },
+  g6() {
+    var a = getRndInteger(1, 4);
+    var b = getRndInteger(1, 4);
+
+    return { question: a + " x " + b, answer: a * b }
+  }
 }
