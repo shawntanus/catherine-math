@@ -13,7 +13,7 @@ const App = () => {
     { id: 3, title: "Level 3", desc: "Minus under 100 with borrow", total: 10 },
     { id: 4, title: "Level 4", desc: "Minus under 100 with borrow mixed", total: 10 },
     { id: 5, title: "Level 5", desc: "Minus under 1000", total: 10 },
-    { id: 6, title: "Level 6", desc: "Multiply under 5", total: 20},
+    { id: 6, title: "Level 6", desc: "Multiply under 9", total: 20},
   ];
 
   const initShared = {
@@ -34,7 +34,7 @@ const App = () => {
       case 'end':
         const q = faunadb.query;
         const client = new faunadb.Client({ secret: 'fnADzi7APHACDAYFfcN6AF0KGb4nDC4VUecbTZRD' });
-        var createP = client.query(
+        client.query(
           q.Create(
             q.Collection('logs'),
             { data:  {level: state.level.id, right: state.right, wrong:state.wrong, wrong_questions: state.wrong_questions }}
@@ -64,7 +64,8 @@ const App = () => {
   return (
     <div className="App">
       <NavBar shared={shared} levels={levels} onSetLevel={onSetLevel} />
-      <div className="container">
+      <main class="container">
+        <div class="bg-light p-5 rounded">
         {(shared.begin == null) &&
           <Intro shared={shared} levels={levels} onStart={() => dispatch({ type: 'begin' })} />
         }
@@ -72,7 +73,8 @@ const App = () => {
         {(shared.begin && shared.end == null) && <Problem shared={shared} onAnswer={(isRight, wrong) => dispatch({ type: 'answer', isRight: isRight, wrong: wrong })} />}
 
         {(shared.end) && <Summary shared={shared} levels={levels} />}
-      </div>
+        </div>
+      </main>
       <div className="fixed-bottom text-right text-muted"><Version /></div>
     </div>
   );
