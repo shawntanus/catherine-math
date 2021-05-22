@@ -43,16 +43,12 @@ const Problem = (props) => {
     }
 
     return (
-        <div className="jumbotron">
-            <form onSubmit={handleSubmit}>
-                <div className="input-group input-group-lg">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">{problem.question} = </span>
-                    </div>
-                    <input type="number" className="form-control" placeholder="Answer here" value={input} onChange={e => setInput(e.target.value)} autoFocus required />
-                </div>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <div className="input-group input-group-lg">
+                <span className="input-group-text">{problem.question} = </span>
+                <input type="number" className="form-control" placeholder="Answer here" value={input} onChange={e => setInput(e.target.value)} autoFocus required />
+            </div>
+        </form>
     );
 }
 
