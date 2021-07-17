@@ -64,8 +64,8 @@ const App = () => {
   return (
     <div className="App">
       <NavBar shared={shared} levels={levels} onSetLevel={onSetLevel} />
-      <main class="container">
-        <div class="bg-light p-5 rounded">
+      <main className="container">
+        <div className="bg-secondary p-5 rounded">
         {(shared.begin == null) &&
           <Intro shared={shared} levels={levels} onStart={() => dispatch({ type: 'begin' })} />
         }

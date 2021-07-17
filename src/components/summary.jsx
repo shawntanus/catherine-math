@@ -2,7 +2,6 @@ import React from 'react';
 import TimeFormatter from './timeformatter';
 
 const Summary = (props) => {
-    const red = { color: "red" };
     return (
         <div className="jumbotron">
             <div><h1>Level: {props.shared.level.id}</h1></div>
@@ -12,7 +11,7 @@ const Summary = (props) => {
             {props.shared.wrong_questions.length > 0 &&
                 <div><h1>Wrong answers:</h1><ul>
                     {props.shared.wrong_questions.map((question, index) => (
-                        <li key={index}><h2 style={red}>{question}</h2></li>
+                        <li key={index}><h2 className="text-primary">{question}</h2></li>
                     ))}
                 </ul></div>
             }

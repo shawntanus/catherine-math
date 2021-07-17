@@ -18,8 +18,8 @@ const NavBar = (props) => {
   }, [props.shared.end, props.shared.begin]);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-      <div class="container-fluid">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+      <div className="container-fluid">
         <button type="button" className="navbar-brand btn btn-link">Catherine Math Practice Project</button>
         <div className="navbar-collapse">
           <ul className="navbar-nav me-auto">

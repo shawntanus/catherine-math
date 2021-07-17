@@ -45,7 +45,7 @@ const Problem = (props) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="input-group input-group-lg">
-                <span className="input-group-text">{problem.question} = </span>
+                <span className="input-group-text bg-secondary">{problem.question} = </span>
                 <input type="number" className="form-control" placeholder="Answer here" value={input} onChange={e => setInput(e.target.value)} autoFocus required />
             </div>
         </form>

@@ -1,0 +1,32 @@
+/* The following block can be included in a custom.scss */
+
+/* make the customizations */
+
+
+// $body-bg: #000;
+
+// Required
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+// $dark: red;
+// $color-contrast-dark: red;
+
+// $body-bg: $purple-100;
+$theme-colors: (
+  "primary":    $purple-600,
+  "secondary":  $purple-200,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+);
+
+$body-bg:  $purple-100;
+
+
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";
+

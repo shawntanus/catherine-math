@@ -3,7 +3,7 @@ function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export default {
+const generator = {
   g1() {
     var a, b, a1;
     do {
@@ -54,3 +54,5 @@ export default {
     return { question: a + " x " + b, answer: a * b }
   }
 }
+
+export default generator;
